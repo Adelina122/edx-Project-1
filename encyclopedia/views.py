@@ -6,8 +6,22 @@ from . import util
 from markdown2 import markdown
 
 class NewPageForm(forms.Form):
-    pageName = forms.CharField(widget=forms.TextInput(attrs={'label': 'Title', 'placeholder': 'Enter a title for the page'}))
-    pageContent = forms.CharField(widget=forms.Textarea(attrs={'name': 'Content', 'placeholder': 'Enter a content for the page', 'rows': '3', 'cols': '5'}))
+    pageName = forms.CharField(
+        label='Titel',
+        widget=forms.TextInput(
+            attrs={
+                'label': 'Title', 
+                'placeholder': 'Enter a title for the page',
+                'class': 'form-field'}))
+    pageContent = forms.CharField(
+        label='Content',
+        widget=forms.Textarea(
+            attrs={
+                'name': 'Content', 
+                'placeholder': 'Enter a content for the page', 
+                'class': 'form-field',
+                'rows': '3', 
+                'cols': '5'}))
 
 def index(request):
     return render(request, "encyclopedia/index.html", {
