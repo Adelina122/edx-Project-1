@@ -25,3 +25,5 @@ def search(request):
         return redirect("encyclopedia:title", title=q)
     return render(request, "encyclopedia/search.html", {"results": util.search(q), "q": q})
 
+def newpage(request):
+    return render(request, "encyclopedia/newpage.html")
