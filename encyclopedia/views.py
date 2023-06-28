@@ -1,4 +1,6 @@
-from django.shortcuts import render
+from django.http import HttpResponseRedirect
+from django.shortcuts import render, redirect
+from django.urls import reverse
 from . import util
 from markdown2 import markdown
 
@@ -16,4 +18,10 @@ def title(request, title):
     return render(request, "encyclopedia/entry.html", {
         "title" : title, "content" : content
     })
+
+def search(request):
+    q = request.POST.get('q')
+    if q in util.list_entries():
+        return redirect("encyclopedia:title", title=q)
+    return render(request, "encyclopedia/search.html", {"results": util.search(q), "q": q})
 
