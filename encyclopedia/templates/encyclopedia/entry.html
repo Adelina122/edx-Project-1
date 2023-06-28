@@ -1,5 +1,11 @@
 {% extends "encyclopedia/layout.html" %}
 
+{%if message%}
+    <div class="alert alert-danger" style="text-align: center;" role="alert">
+    {{ message }}
+    </div>
+{%endif%}
+
 {% block title %}
     {{ title|safe }}
 {% endblock %}
