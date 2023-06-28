@@ -37,7 +37,9 @@ def newpage(request):
             pageName = form.cleaned_data['pageName']
             pageContent = form.cleaned_data['pageContent']
             if pageName in util.list_entries():
-                return render(request, "encyclopedia/entry.html", {"message": "Title already exist. Try another.", "title": pageName, "content": pageContent})
+                pageContent = "##Title already exist. Try another one"
+                pageContent = markdown(pageContent)
+                return render(request, "encyclopedia/entry.html", {"title": pageName, "content": pageContent})
             util.save_entry(pageName, pageContent)
             return redirect("encyclopedia:title", title=pageName)
         else:
