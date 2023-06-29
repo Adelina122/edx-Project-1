@@ -1,11 +1,5 @@
 {% extends "encyclopedia/layout.html" %}
 
-{%if message%}
-    <div class="alert alert-danger" style="text-align: center;" role="alert">
-    {{ message }}
-    </div>
-{%endif%}
-
 {% block title %}
     {{ title|safe }}
 {% endblock %}
@@ -14,4 +8,10 @@
     {{ content|safe }}
 
     <a href="{% url 'encyclopedia:index' %}">Go to the main page</a>
+
+    <form action="{% url 'encyclopedia:editpage' %}" method="POST">
+        {% csrf_token %}
+        <input type="hidden" name="entry_title" value="{{ title }}">
+        <input type="submit" name="submit" value="Edit page">
+    </form>
 {% endblock %}

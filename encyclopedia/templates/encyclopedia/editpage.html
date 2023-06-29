@@ -1,0 +1,24 @@
+{% extends "encyclopedia/layout.html" %}
+
+{% block title %}
+    Edit
+    {{ title }}
+{% endblock %}
+
+{% block body %}
+    <h1>Edit Page</h1>
+    <form method="POST">
+        {% csrf_token %}
+    <div class="input-area" style="margin-bottom: 10px;">
+        <label for="nameArea">Name of the page</label><br>
+            <textarea name="pageName" id="nameArea" cols="40" rows="5" style="width: 900px; height:30px;" required="required" disabled>{{ title }}</textarea>
+    </div>
+
+    <div class="input-area" style="margin-bottom: 10px;">
+        <label for="contentArea">Edit the Markdown content of the page</label><br>
+            <textarea name="pageContent" id="contentArea" cols="40" rows="5" style="width: 900px; height:150px;" required="required">{{ content }}</textarea><br>
+    </div>
+
+        <input type="submit" name="submitButton" id="btn" value="Submit">
+        </form>
+{% endblock %}

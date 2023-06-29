@@ -3,6 +3,7 @@ from django import forms
 from django.shortcuts import render, redirect
 from django.urls import reverse
 from . import util
+from random import randint
 from markdown2 import markdown
 
 class NewPageForm(forms.Form):
@@ -10,9 +11,10 @@ class NewPageForm(forms.Form):
         label='Titel',
         widget=forms.TextInput(
             attrs={
-                'label': 'Title', 
+                'name': 'Title', 
                 'placeholder': 'Enter a title for the page',
                 'class': 'form-field'}))
+    
     pageContent = forms.CharField(
         label='Content',
         widget=forms.Textarea(
@@ -60,6 +62,25 @@ def newpage(request):
             return render(request, "encyclopedia/newpage.html", {
                 "form" : form
             })
+        
     return render(request, "encyclopedia/newpage.html", {
         "form" : NewPageForm()
     })
+
+def editpage(request):
+    if request.method == "POST":
+        title = request.POST['entry_title']
+        content = util.get_entry(title)
+        util.save_entry(title, content)
+        return render(request, "encyclopedia/editpage.html", {
+            "title" : title, "content" : content
+        })
+    # util.save_entry(title, content)
+    return redirect("encyclopedia:title", title=title)
+
+def random(request):
+    entries = util.list_entries()
+    entry = entries[randint(0, len(entries)-1)]
+    return redirect("encyclopedia:title", title=entry)
+
+
