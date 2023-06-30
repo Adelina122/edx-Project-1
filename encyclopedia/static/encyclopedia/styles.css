@@ -41,3 +41,7 @@ textarea {
     display: block;
     margin-bottom: 10px;
 }
+
+.container {
+    margin: 20px 30px;
+}

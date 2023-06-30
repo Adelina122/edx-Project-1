@@ -8,10 +8,11 @@ from markdown2 import markdown
 
 class NewPageForm(forms.Form):
     pageName = forms.CharField(
-        label='Titel',
+        label='Title',
         widget=forms.TextInput(
             attrs={
-                'name': 'Title', 
+                'name': 'title', 
+                'id':'pageTitle',
                 'placeholder': 'Enter a title for the page',
                 'class': 'form-field'}))
     
@@ -19,11 +20,17 @@ class NewPageForm(forms.Form):
         label='Content',
         widget=forms.Textarea(
             attrs={
-                'name': 'Content', 
+                'name': 'content', 
                 'placeholder': 'Enter a content for the page', 
                 'class': 'form-field',
                 'rows': '3', 
                 'cols': '5'}))
+
+class EditForm(forms.Form):
+    # """ Form Class for Editing Entries """
+    text = forms.CharField(label='', widget=forms.Textarea(attrs={
+        "placeholder": "Enter Page Content using Github Markdown"
+    }))
 
 def index(request):
     return render(request, "encyclopedia/index.html", {
@@ -67,16 +74,22 @@ def newpage(request):
         "form" : NewPageForm()
     })
 
-def editpage(request):
+def editpage(request, entry):
+    content = util.get_entry(entry)
+    if content:
+        return render(request, "encyclopedia/editpage.html",{
+        "title": entry,
+        "content" : util.get_entry(entry)
+    })
+    else:
+        return HttpResponseRedirect(reverse('encyclopedia:index'))
+    
+def savepage(request, entry):
     if request.method == "POST":
-        title = request.POST['entry_title']
-        content = util.get_entry(title)
-        util.save_entry(title, content)
-        return render(request, "encyclopedia/editpage.html", {
-            "title" : title, "content" : content
-        })
-    # util.save_entry(title, content)
-    return redirect("encyclopedia:title", title=title)
+        new_content = request.POST.get("content")
+        util.save_entry(entry, new_content)
+        return redirect("encyclopedia:title", entry)
+
 
 def random(request):
     entries = util.list_entries()

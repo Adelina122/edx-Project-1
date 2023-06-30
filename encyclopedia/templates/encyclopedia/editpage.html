@@ -6,19 +6,20 @@
 {% endblock %}
 
 {% block body %}
-    <h1>Edit Page</h1>
-    <form method="POST">
+    <h1>Edit {{ title }} Page</h1>
+    <form action="{% url 'encyclopedia:savepage' title %}" method="POST">
         {% csrf_token %}
     <div class="input-area" style="margin-bottom: 10px;">
-        <label for="nameArea">Name of the page</label><br>
-            <textarea name="pageName" id="nameArea" cols="40" rows="5" style="width: 900px; height:30px;" required="required" disabled>{{ title }}</textarea>
+        <label for="id_title">Title:</label><br/> 
+        <input type="text" name="title" value="{{ title }}" id="id_title" readonly="" disabled></p>
     </div>
 
     <div class="input-area" style="margin-bottom: 10px;">
-        <label for="contentArea">Edit the Markdown content of the page</label><br>
-            <textarea name="pageContent" id="contentArea" cols="40" rows="5" style="width: 900px; height:150px;" required="required">{{ content }}</textarea><br>
+        <label for="id_content">Content:</label><br/>
+        <textarea name="content" style="height: 300px" required id="id_content">{{ content }}</textarea></p>
     </div>
 
-        <input type="submit" name="submitButton" id="btn" value="Submit">
+    <button class="btn btn-primary" type="submit">Save</button>
+        <!-- <input type="submit" name="submitButton" id="btn" value="Submit" class="btn btn-primary"> -->
         </form>
 {% endblock %}

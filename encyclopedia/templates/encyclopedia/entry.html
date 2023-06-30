@@ -6,12 +6,13 @@
 
 {% block body %}
     {{ content|safe }}
-
-    <a href="{% url 'encyclopedia:index' %}">Go to the main page</a>
-
-    <form action="{% url 'encyclopedia:editpage' %}" method="POST">
+    <form action="{% url 'encyclopedia:editpage' title %}" method="POST">
         {% csrf_token %}
-        <input type="hidden" name="entry_title" value="{{ title }}">
-        <input type="submit" name="submit" value="Edit page">
-    </form>
+        <input
+            type="hidden" name="entry_title" value="{{ title }}">
+            <!-- <input type="submit" name="submit" value="Edit page"> -->
+            <button class="btn btn-primary" type="submit">Edit page</button>
+            <a href="{% url 'encyclopedia:index' %}" style="margin-left: 20px;">Go to the main page</a>
+
+        </form>
 {% endblock %}
