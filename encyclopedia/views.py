@@ -26,12 +26,6 @@ class NewPageForm(forms.Form):
                 'rows': '3', 
                 'cols': '5'}))
 
-class EditForm(forms.Form):
-    # """ Form Class for Editing Entries """
-    text = forms.CharField(label='', widget=forms.Textarea(attrs={
-        "placeholder": "Enter Page Content using Github Markdown"
-    }))
-
 def index(request):
     return render(request, "encyclopedia/index.html", {
         "entries": util.list_entries()

@@ -7,20 +7,10 @@
 {% block body %}
     <h1>Create New Page</h1> <br>
 
-    <div>
     <form action="{% url 'encyclopedia:newpage' %}" method="POST">
         {% csrf_token %}
-        <!-- <div class="input-area" style="margin-bottom: 10px;">
-        <label for="nameArea">Enter the name for the page</label> <br>
-        <textarea name="pageName" id="nameArea" cols="40" rows="5" style="width: 900px; height:30px;" required></textarea>
-        </div>
 
-        <div class="input-area" style="margin-bottom: 10px;">
-        <label for="contentArea">Enter the Markdown content for the page </label> <br>
-        <textarea name="pageContent" id="contentArea" cols="40" rows="5" style="width: 900px; height:150px;" required></textarea><br>
-        </div> -->
         {{ form }}
         <input type="submit" name="submitButton" id="btn" value="Submit">
     </form>
-    </div>
 {% endblock %}

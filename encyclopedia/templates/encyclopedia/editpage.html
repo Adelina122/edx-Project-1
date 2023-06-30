@@ -1,25 +1,26 @@
 {% extends "encyclopedia/layout.html" %}
 
 {% block title %}
-    Edit
-    {{ title }}
+    Edit {{ title }}
 {% endblock %}
 
 {% block body %}
     <h1>Edit {{ title }} Page</h1>
+
     <form action="{% url 'encyclopedia:savepage' title %}" method="POST">
         {% csrf_token %}
-    <div class="input-area" style="margin-bottom: 10px;">
-        <label for="id_title">Title:</label><br/> 
-        <input type="text" name="title" value="{{ title }}" id="id_title" readonly="" disabled></p>
-    </div>
 
-    <div class="input-area" style="margin-bottom: 10px;">
-        <label for="id_content">Content:</label><br/>
-        <textarea name="content" style="height: 300px" required id="id_content">{{ content }}</textarea></p>
+        <div class="input-area" style="margin-bottom: 10px;">
+            <label for="id_title">Title:</label><br/>
+            <input type="text" name="title" value="{{ title }}" id="id_title" readonly="" disabled="disabled"></p>
+        </div>
+
+        <div class="input-area" style="margin-bottom: 10px;">
+            <label for="id_content">Content:</label><br/>
+            <textarea name="content" style="height: 300px" required="required" id="id_content">{{ content }}</textarea>
+        </p>
     </div>
 
     <button class="btn btn-primary" type="submit">Save</button>
-        <!-- <input type="submit" name="submitButton" id="btn" value="Submit" class="btn btn-primary"> -->
-        </form>
+</form>
 {% endblock %}
